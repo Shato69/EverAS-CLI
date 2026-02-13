@@ -1,7 +1,7 @@
 name: Keep Supabase Alive
 on:
   schedule:
-    - cron: '0 */7 * * *'  # Every 7 hours
+    - cron: '0 */12 * * *'  # Every 12 hours
   workflow_dispatch:
 
 jobs:
@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: Ping Supabase
         run: |
-          curl -X POST 'https://zmnlctsroufobhdyntsw.supabase.co/rest/v1/rpc/keep_alive' \
+          curl -X GET 'https://zmnlctsroufobhdyntsw.supabase.co/rest/v1/rpc/keep_alive' \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Content-Type: application/json"
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
